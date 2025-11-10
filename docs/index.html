@@ -4,60 +4,49 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Calorie Calc Pro</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 <style>
-* { margin:0; padding:0; box-sizing:border-box;}
-body {font-family:'Roboto',sans-serif; background:linear-gradient(135deg,#f6d365 0%,#fda085 100%); min-height:100vh; display:flex; flex-direction:column; align-items:center;}
-header {width:100%; background: rgba(255,255,255,0.95); padding:15px 20px; display:flex; justify-content:space-between; align-items:center; box-shadow:0 5px 15px rgba(0,0,0,0.2); position:sticky; top:0; z-index:100;}
-header h1 {color:#333; font-size:1.8em;}
-header .sign-in {display:flex; gap:10px;}
-header .sign-in button {padding:8px 12px; border-radius:10px; border:none; background-color:#ff7f50; color:white; cursor:pointer; font-weight:bold; transition:0.2s;}
-header .sign-in button:hover{background-color:#ff6347;}
-main {margin-top:20px; width:90%; max-width:1000px; background: rgba(255,255,255,0.95); padding:25px; border-radius:20px; box-shadow:0 10px 25px rgba(0,0,0,0.2);}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:sans-serif;background:linear-gradient(135deg,#f6d365,#fda085);min-height:100vh;display:flex;flex-direction:column;align-items:center;}
+header{width:100%;background: rgba(255,255,255,0.95);padding:15px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;box-shadow:0 5px 15px rgba(0,0,0,0.2);}
+header h1{color:#333;}
+main{margin-top:20px;width:90%;max-width:1000px;background: rgba(255,255,255,0.95);padding:25px;border-radius:20px;box-shadow:0 10px 25px rgba(0,0,0,0.2);}
 .calorie-section{margin-bottom:25px;}
-label,input,button{display:block; width:100%; margin-bottom:15px;}
-input{padding:10px; border-radius:10px; border:1px solid #ccc;}
-button{padding:12px; border-radius:10px; border:none; background-color:#ff7f50; color:white; font-size:1em; cursor:pointer; transition:0.2s;}
-button:hover{background-color:#ff6347;}
-#result,#summary,#muscle-tips,#log {margin-top:20px; font-size:1.1em; color:#333;}
-.log-section{margin-top:25px; background:#f0f0f0; padding:15px; border-radius:15px;}
-.progress-bar-container {background:#eee; border-radius:10px; overflow:hidden; margin-top:10px;}
-.progress-bar {height:20px; background:#ff7f50; width:0%; transition:0.5s;}
-.suggestion-box {background:#fff; border:1px solid #ccc; border-radius:10px; max-height:150px; overflow-y:auto; position:absolute; width:calc(100% - 22px);}
-.suggestion-box div {padding:8px; cursor:pointer;}
-.suggestion-box div:hover {background:#ff7f50; color:white;}
+input,button{display:block;width:100%;margin-bottom:10px;padding:10px;border-radius:10px;border:1px solid #ccc;}
+button{background:#ff7f50;color:white;font-weight:bold;cursor:pointer;border:none;transition:0.2s;}
+button:hover{background:#ff6347;}
+.progress-bar-container {background:#eee;border-radius:10px;overflow:hidden;margin-top:10px;}
+.progress-bar {height:20px;background:#ff7f50;width:0%;transition:0.5s;}
+.suggestion-box {background:#fff;border:1px solid #ccc;border-radius:10px;max-height:150px;overflow-y:auto;position:absolute;width:calc(100% - 22px);}
+.suggestion-box div{padding:8px;cursor:pointer;}
+.suggestion-box div:hover{background:#ff7f50;color:white;}
+#log{margin-top:15px;}
 </style>
 </head>
 <body>
 
 <header>
 <h1>Calorie Calc Pro</h1>
-<div class="sign-in">
-<button onclick="alert('Sign in with Google placeholder')">Google</button>
-<button onclick="alert('Sign in with Apple placeholder')">Apple</button>
-</div>
 </header>
 
 <main>
-
 <div class="calorie-section">
-<h2>Enter Your Height & Weight</h2>
-<input type="number" id="weight" placeholder="Weight in kg">
-<input type="number" id="height" placeholder="Height in cm">
+<h2>Your Profile</h2>
+<input type="number" id="weight" placeholder="Weight (kg)">
+<input type="number" id="height" placeholder="Height (cm)">
 <button id="setProfile">Set Profile</button>
 </div>
 
 <div class="calorie-section">
 <h2>Add Calories Manually</h2>
-<input type="number" id="manualCalories" placeholder="e.g., 500">
+<input type="number" id="manualCalories" placeholder="Calories">
 <button id="addManual">Add</button>
 <div id="result">Total Calories: 0</div>
 <button id="resetCal" style="background-color:#4CAF50;">Reset</button>
 </div>
 
 <div class="calorie-section" style="position:relative;">
-<h2>Search Food & Add Calories</h2>
-<input type="text" id="foodSearch" placeholder="Type food name and press Enter" autocomplete="off">
+<h2>Search Food</h2>
+<input type="text" id="foodSearch" placeholder="Type food">
 <div class="suggestion-box" id="suggestions"></div>
 <button id="addFoodSearch">Add Food</button>
 </div>
@@ -75,22 +64,19 @@ button:hover{background-color:#ff6347;}
 </div>
 
 <div class="calorie-section" id="muscle-tips">
-<h2>Muscle Building Tips</h2>
+<h2>Muscle Tips</h2>
 <ul>
-<li>Eat protein-rich foods: eggs, chicken, beans.</li>
-<li>Include complex carbs for energy: oats, rice, sweet potatoes.</li>
-<li>Healthy fats help with hormone balance: avocado, nuts, olive oil.</li>
+<li>Protein: eggs, chicken, beans</li>
+<li>Carbs: oats, rice, sweet potatoes</li>
+<li>Fats: avocado, nuts, olive oil</li>
 </ul>
 <img src="https://cdn.pixabay.com/photo/2017/04/03/00/42/healthy-food-2192302_1280.jpg" style="max-width:100%; border-radius:15px; margin-top:15px;">
 </div>
 
-<div class="calorie-section log-section">
+<div class="calorie-section">
 <h2>Calorie Log</h2>
-<button onclick="showLog()">View Log</button>
 <ul id="log"></ul>
 </div>
-
-</main>
 
 <script>
 // ---- INITIALIZE ----
@@ -98,90 +84,62 @@ let totalCalories = localStorage.getItem('totalCalories') ? parseInt(localStorag
 let calorieLog = localStorage.getItem('calorieLog') ? JSON.parse(localStorage.getItem('calorieLog')) : [];
 let DAILY_TARGET = 2000;
 
-// ---- HUGE FOOD DATABASE (4000 foods) ----
+// ---- FOOD DATABASE (subset here, expand to thousands) ----
 const foodDB = [
-{food:"Apple",calories:95},{food:"Banana",calories:105},{food:"Orange",calories:62},{food:"Bread Slice",calories:79},
-{food:"Chicken Breast (100g)",calories:165},{food:"Egg",calories:78},{food:"Rice (100g cooked)",calories:130},{food:"Oatmeal (100g cooked)",calories:71},
-{food:"Almonds (10g)",calories:58},{food:"Broccoli (100g)",calories:34},{food:"Beef Steak (100g)",calories:250},{food:"Butter (10g)",calories:72},
-{food:"Blueberries (100g)",calories:57},{food:"Black Beans (100g)",calories:132},{food:"Bagel",calories:245},{food:"Bacon Slice",calories:43},
-// --- continue pattern to ~4000 foods ---
+{food:"Apple",calories:95},{food:"Banana",calories:105},{food:"Orange",calories:62},{food:"Bread",calories:79},
+{food:"Chicken Breast",calories:165},{food:"Egg",calories:78},{food:"Rice",calories:130},{food:"Oatmeal",calories:71},
+{food:"Almonds",calories:58},{food:"Broccoli",calories:34},{food:"Beef",calories:250},{food:"Butter",calories:72},
+// ... (this list should continue to thousands of entries)
 ];
 
 // ---- FUNCTIONS ----
 function findCalories(foodName){
     foodName = foodName.toLowerCase().trim();
-    let match = foodDB.find(f => f.food.toLowerCase() === foodName);
-    if(!match){
-        match = foodDB.find(f => f.food.toLowerCase().includes(foodName));
-    }
-    return match ? match.calories : null;
+    let match = foodDB.find(f=>f.food.toLowerCase()===foodName);
+    if(!match) match = foodDB.find(f=>f.food.toLowerCase().includes(foodName));
+    return match?match.calories:null;
 }
 
 function updateSuggestions(value){
-    const suggestions = document.getElementById('suggestions');
+    const suggestions=document.getElementById('suggestions');
     suggestions.innerHTML='';
     if(!value) return;
-    const matches = foodDB.filter(f => f.food.toLowerCase().startsWith(value.toLowerCase())).slice(0,10);
+    const matches=foodDB.filter(f=>f.food.toLowerCase().startsWith(value.toLowerCase())).slice(0,10);
     matches.forEach(f=>{
-        const div = document.createElement('div');
-        div.textContent = f.food;
-        div.addEventListener('click',()=>{
-            document.getElementById('foodSearch').value=f.food;
-            suggestions.innerHTML='';
-        });
+        const div=document.createElement('div');
+        div.textContent=f.food;
+        div.addEventListener('click',()=>{document.getElementById('foodSearch').value=f.food;suggestions.innerHTML='';});
         suggestions.appendChild(div);
     });
 }
 
-document.getElementById('foodSearch').addEventListener('input',e=>{
-    updateSuggestions(e.target.value);
-});
+document.getElementById('foodSearch').addEventListener('input',e=>updateSuggestions(e.target.value));
+document.getElementById('foodSearch').addEventListener('keypress',e=>{if(e.key==='Enter')document.getElementById('addFoodSearch').click();});
 
-// --- User Profile ---
 document.getElementById('setProfile').addEventListener('click',()=>{
-    const weight = parseFloat(document.getElementById('weight').value);
-    const height = parseFloat(document.getElementById('height').value);
+    const weight=parseFloat(document.getElementById('weight').value);
+    const height=parseFloat(document.getElementById('height').value);
     if(weight>0 && height>0){
-        // Mifflin-St Jeor formula for male approximation
-        DAILY_TARGET = Math.round(10*weight + 6.25*height - 5*25 + 5); // assuming age 25, male
+        DAILY_TARGET=Math.round(10*weight + 6.25*height - 5*25 + 5); // male, age 25
         alert('Profile set! Daily target: '+DAILY_TARGET+' kcal');
         updateSummary();
     }
 });
 
 document.getElementById('addManual').addEventListener('click',()=>{
-    const cal = parseInt(document.getElementById('manualCalories').value);
-    if(!isNaN(cal)){
-        totalCalories += cal;
-        calorieLog.push({food:'Manual Entry', calories:cal});
-        updateTotal();
-        document.getElementById('manualCalories').value='';
-    }
+    const cal=parseInt(document.getElementById('manualCalories').value);
+    if(!isNaN(cal)){totalCalories+=cal;calorieLog.push({food:'Manual Entry',calories:cal});updateTotal();document.getElementById('manualCalories').value='';}
 });
 
-document.getElementById('resetCal').addEventListener('click',()=>{
-    totalCalories = 0;
-    calorieLog = [];
-    updateTotal();
-});
-
+document.getElementById('resetCal').addEventListener('click',()=>{totalCalories=0;calorieLog=[];updateTotal();});
 document.getElementById('addFoodSearch').addEventListener('click',()=>{
-    const query = document.getElementById('foodSearch').value.trim();
+    const query=document.getElementById('foodSearch').value.trim();
     if(query){
-        const cal = findCalories(query);
-        if(cal!==null){
-            totalCalories += cal;
-            calorieLog.push({food:query, calories:cal});
-            updateTotal();
-        }else{
-            alert("Food not found in database.");
-        }
+        const cal=findCalories(query);
+        if(cal!==null){totalCalories+=cal;calorieLog.push({food:query,calories:cal});updateTotal();}
+        else alert("Food not found in database.");
         document.getElementById('foodSearch').value='';
     }
-});
-
-document.getElementById('foodSearch').addEventListener('keypress',e=>{
-    if(e.key==='Enter') document.getElementById('addFoodSearch').click();
 });
 
 function updateTotal(){
@@ -190,35 +148,28 @@ function updateTotal(){
     localStorage.setItem('calorieLog',JSON.stringify(calorieLog));
     updateSummary();
     updateProgressBar();
+    showLog();
 }
 
 function updateSummary(){
-    const maintain = DAILY_TARGET;
-    const gain = maintain + 200;
-    const lose = maintain - 200;
-    document.getElementById('maintain').textContent=`Maintain: ${maintain} kcal/day`;
-    document.getElementById('gain').textContent=`Gain: ${gain} kcal/day`;
-    document.getElementById('lose').textContent=`Lose: ${lose} kcal/day`;
+    document.getElementById('maintain').textContent=`Maintain: ${DAILY_TARGET} kcal/day`;
+    document.getElementById('gain').textContent=`Gain: ${DAILY_TARGET+200} kcal/day`;
+    document.getElementById('lose').textContent=`Lose: ${DAILY_TARGET-200} kcal/day`;
 }
 
 function updateProgressBar(){
-    let percent = Math.min((totalCalories/DAILY_TARGET)*100,100);
-    document.getElementById('progressBar').style.width = percent+'%';
+    const percent=Math.min((totalCalories/DAILY_TARGET)*100,100);
+    document.getElementById('progressBar').style.width=percent+'%';
 }
 
 function showLog(){
-    const logUl = document.getElementById('log');
+    const logUl=document.getElementById('log');
     logUl.innerHTML='';
-    calorieLog.forEach(entry=>{
-        const li = document.createElement('li');
-        li.textContent=`${entry.food}: ${entry.calories} kcal`;
-        logUl.appendChild(li);
-    });
+    calorieLog.forEach(entry=>{const li=document.createElement('li');li.textContent=`${entry.food}: ${entry.calories} kcal`;logUl.appendChild(li);});
 }
 
 // Initialize
 updateTotal();
 </script>
-
 </body>
 </html>
