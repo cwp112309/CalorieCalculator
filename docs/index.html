@@ -1,93 +1,220 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Calorie Calc</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Optional: Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        header {
-            background-color: rgba(255,255,255,0.8);
-            padding: 20px;
-            width: 100%;
-            text-align: center;
-            font-size: 2em;
-            font-weight: bold;
-            color: #333;
-        }
-        main {
-            margin-top: 50px;
-            width: 90%;
-            max-width: 600px;
-            background-color: rgba(255,255,255,0.9);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-        label, input, button {
-            display: block;
-            width: 100%;
-            margin-bottom: 15px;
-        }
-        input {
-            padding: 10px;
-            border-radius: 10px;
-            border: 1px solid #ccc;
-        }
-        button {
-            padding: 12px;
-            border-radius: 10px;
-            border: none;
-            background-color: #ff7f50;
-            color: white;
-            font-size: 1em;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #ff6347;
-        }
-        #result {
-            margin-top: 20px;
-            font-size: 1.2em;
-            color: #333;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calorie Calc Pro</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    /* Reset */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+        font-family: 'Roboto', sans-serif;
+        background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    header {
+        width: 100%;
+        background: rgba(255,255,255,0.9);
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    header h1 { color: #333; font-size: 1.8em; }
+    header .sign-in {
+        display: flex;
+        gap: 10px;
+    }
+    header .sign-in button {
+        padding: 8px 12px;
+        border-radius: 10px;
+        border: none;
+        background-color: #ff7f50;
+        color: #fff;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.2s;
+    }
+    header .sign-in button:hover { background-color: #ff6347; }
+
+    main {
+        margin-top: 20px;
+        width: 90%;
+        max-width: 900px;
+        background: rgba(255,255,255,0.95);
+        padding: 25px;
+        border-radius: 20px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    .calorie-section {
+        margin-bottom: 25px;
+    }
+
+    .food-index {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 15px;
+        margin-top: 15px;
+    }
+    .food-card {
+        background: #fff5e6;
+        padding: 15px;
+        border-radius: 15px;
+        text-align: center;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    .food-card:hover { transform: scale(1.05); box-shadow: 0 10px 15px rgba(0,0,0,0.2); }
+
+    label, input, button { display: block; width: 100%; margin-bottom: 15px; }
+    input { padding: 10px; border-radius: 10px; border: 1px solid #ccc; }
+    button {
+        padding: 12px;
+        border-radius: 10px;
+        border: none;
+        background-color: #ff7f50;
+        color: white;
+        font-size: 1em;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    button:hover { background-color: #ff6347; }
+
+    #result, #summary, #muscle-tips, #log { margin-top: 20px; font-size: 1.1em; color: #333; }
+
+    .diagram { max-width: 100%; margin-top: 15px; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+
+    .log-section { margin-top: 25px; background: #f0f0f0; padding: 15px; border-radius: 15px; }
+</style>
 </head>
 <body>
-    <header>Calorie Calc</header>
-    <main>
-        <label for="calories">Enter calories:</label>
-        <input type="number" id="calories" placeholder="e.g., 500">
-        <button id="addCal">Add Calories</button>
-        <div id="result">Total Calories: 0</div>
-        <button id="resetCal" style="margin-top:10px;background-color:#4CAF50;">Reset</button>
-    </main>
 
-    <script>
-        let totalCalories = 0;
-        const resultDiv = document.getElementById('result');
-        document.getElementById('addCal').addEventListener('click', () => {
-            const cal = parseInt(document.getElementById('calories').value);
-            if (!isNaN(cal)) {
-                totalCalories += cal;
-                resultDiv.textContent = `Total Calories: ${totalCalories}`;
-                document.getElementById('calories').value = '';
-            }
+<header>
+    <h1>Calorie Calc Pro</h1>
+    <div class="sign-in">
+        <button onclick="alert('Sign in with Google placeholder')">Google</button>
+        <button onclick="alert('Sign in with Apple placeholder')">Apple</button>
+    </div>
+</header>
+
+<main>
+    <div class="calorie-section">
+        <h2>Add Calories Manually</h2>
+        <input type="number" id="manualCalories" placeholder="e.g., 500">
+        <button id="addManual">Add</button>
+        <div id="result">Total Calories: 0</div>
+        <button id="resetCal" style="background-color:#4CAF50;">Reset</button>
+    </div>
+
+    <div class="calorie-section">
+        <h2>Food Index</h2>
+        <div class="food-index" id="foodIndex"></div>
+    </div>
+
+    <div class="calorie-section" id="summary">
+        <h2>Calorie Summary</h2>
+        <p id="maintain">Maintain: 2000 kcal/day</p>
+        <p id="gain">Gain: 2200 kcal/day</p>
+        <p id="lose">Lose: 1800 kcal/day</p>
+    </div>
+
+    <div class="calorie-section" id="muscle-tips">
+        <h2>Muscle Building Tips</h2>
+        <ul>
+            <li>Eat protein-rich foods: eggs, chicken, beans.</li>
+            <li>Include complex carbs for energy: oats, rice, sweet potatoes.</li>
+            <li>Healthy fats help with hormone balance: avocado, nuts, olive oil.</li>
+        </ul>
+        <img src="https://cdn.pixabay.com/photo/2017/04/03/00/42/healthy-food-2192302_1280.jpg" class="diagram" alt="Healthy Food Diagram">
+    </div>
+
+    <div class="calorie-section log-section">
+        <h2>Calorie Log</h2>
+        <button onclick="showLog()">View Log</button>
+        <ul id="log"></ul>
+    </div>
+</main>
+
+<script>
+    let totalCalories = 0;
+    let calorieLog = [];
+
+    const foodList = [
+        {name: "Apple", calories: 95},
+        {name: "Banana", calories: 105},
+        {name: "Orange", calories: 62},
+        {name: "Bread Slice", calories: 79},
+        {name: "Chicken Breast (100g)", calories: 165},
+        {name: "Egg", calories: 78},
+        {name: "Rice (100g cooked)", calories: 130},
+        {name: "Oatmeal (100g cooked)", calories: 71},
+        {name: "Almonds (10g)", calories: 58},
+        {name: "Broccoli (100g)", calories: 34}
+    ];
+
+    const foodIndexDiv = document.getElementById('foodIndex');
+
+    foodList.forEach(food => {
+        const card = document.createElement('div');
+        card.classList.add('food-card');
+        card.textContent = `${food.name} (${food.calories} kcal)`;
+        card.addEventListener('click', () => {
+            totalCalories += food.calories;
+            calorieLog.push({food: food.name, calories: food.calories});
+            updateTotal();
         });
-        document.getElementById('resetCal').addEventListener('click', () => {
-            totalCalories = 0;
-            resultDiv.textContent = 'Total Calories: 0';
+        foodIndexDiv.appendChild(card);
+    });
+
+    document.getElementById('addManual').addEventListener('click', () => {
+        const cal = parseInt(document.getElementById('manualCalories').value);
+        if(!isNaN(cal)) {
+            totalCalories += cal;
+            calorieLog.push({food: 'Manual Entry', calories: cal});
+            updateTotal();
+            document.getElementById('manualCalories').value = '';
+        }
+    });
+
+    document.getElementById('resetCal').addEventListener('click', () => {
+        totalCalories = 0;
+        calorieLog = [];
+        updateTotal();
+    });
+
+    function updateTotal() {
+        document.getElementById('result').textContent = `Total Calories: ${totalCalories}`;
+        updateSummary();
+    }
+
+    function updateSummary() {
+        // Example average values; could be improved with actual user height/weight
+        let maintain = 2000;
+        let gain = maintain + 200;
+        let lose = maintain - 200;
+        document.getElementById('maintain').textContent = `Maintain: ${maintain} kcal/day`;
+        document.getElementById('gain').textContent = `Gain: ${gain} kcal/day`;
+        document.getElementById('lose').textContent = `Lose: ${lose} kcal/day`;
+    }
+
+    function showLog() {
+        const logUl = document.getElementById('log');
+        logUl.innerHTML = '';
+        calorieLog.forEach(entry => {
+            const li = document.createElement('li');
+            li.textContent = `${entry.food}: ${entry.calories} kcal`;
+            logUl.appendChild(li);
         });
-    </script>
+    }
+</script>
+
 </body>
 </html>
